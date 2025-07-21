@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
+:root {
+    --color0: #dadada;
+    --color1: #153243;
+    --color2: #284B63;
+    --color3: #2589cc;
+    --color4: #081c27;
+    --font: 'Poppins', Arial, Helvetica, sans-serif;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color1);
+}
+
+header {
+    text-align: center;
+    background-color: var(--color2);
+}
+
+header>h1 {
+    font-family: var(--font);
+    font-size: 3em;
+    margin: 1.2em;
+}
+
+svg {
+    display: flex;
+    align-self: flex-end;
+
+}
+
+h2 {
+    text-align: center;
+    margin: 2em 0;
+    color: white;
+}
+
+/* Page Home */
+table {
+    background-color: var(--color0);
+    border-collapse: collapse;
+    display: block;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0 auto 20em auto;
+    max-width: 40em;
+    overflow-x: auto;
+}
+
+table td,
+table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: var(--color2);
+    color: white;
+}
+
+/* Page error 404 */
+section.error {
+    text-align: center;
+    padding-top: 2em;
+    color: white;
+}
+
+section.error>h1 {
+    font-size: 5em;
+}
+
+section.error>p>a {
+    color: white;
+}
+
+section.error>p>a:hover {
+    color: var(--color0);
+}
+
+/* Páginas de cadastro e checkin */
+form {
+    display: flex;
+    flex-direction: column;
+    width: 40em;
+    margin: auto;
+}
+
+.input-container {
+    display: block;
+    width: 280px;
+    position: relative;
+    margin: 2em auto;
+}
+
+.label {
+    font-size: 14px;
+    position: absolute;
+    left: 10px;
+    top: -10px;
+    /* transition: all 0.2s; */
+    padding: 0 2px;
+    z-index: 1;
+    color: #b3b3b3;
+}
+
+.text-input {
+    padding: 0.8rem;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--color2);
+    background-color: var(--color4);
+    border-radius: 5px;
+    font-size: 18px;
+    outline: none;
+    transition: all 0.3s;
+    color: #fff;
+}
+
+.label::before {
+    content: "";
+    height: 5px;
+    background-color: var(--color4);
+    position: absolute;
+    left: 0px;
+    top: 10px;
+    width: 100%;
+    z-index: -1;
+}
+
+.text-input:focus {
+    border: 2px solid var(--color3);
+}
+
+.text-input:focus+.label,
+.filled {
+    color: var(--color3);
+    font-size: 14px;
+}
+
+.text-input::placeholder {
+    font-size: 16px;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.text-input:focus::placeholder {
+    opacity: 1;
+}
+
+input[type="submit"] {
+    cursor: pointer;
+    background-color: var(--color4);
+    border: 2px solid var(--color2);
+    border-radius: 1em;
+    color: #b3b3b3;
+    display: block;
+    width: 230px;
+    margin: 0 auto;
+    padding: 1em;
+}
+
+input[type="submit"]:hover {
+    transition: all 0.3s;
+    background-color: var(--color3);
+    border: 2px solid var(--color1);
+    color: white;
+}
+
+main {
+    flex: 1 0 auto;
+    display: block;
+    width: 100%;
+    height: 10em;
+    background-color: var(--color1);
+    margin-bottom: 40em;
+}
+
+footer {
+    background-color: var(--color2);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.3em;
+}
+
+div.text {
+    color: white;
+    text-align: left;
+}
+
+div.text>p>a {
+    color: white;
+}
+
+div.text>p>a:hover {
+    color: var(--color0);
+}
+
+abbr {
+    text-decoration: none;
+}
+
+img {
+    image-rendering: optimizeQuality;
+    width: 100%;
+    max-width: 9em;
+}
+
+@media screen and (max-width: 700px) {
+
+    header,
+    main {
+        width: 100%;
+    }
+
+    form {
+        display: block;
+        width: 100%;
+    }
+}
