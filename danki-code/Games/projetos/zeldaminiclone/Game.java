@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 
-    private static final int WIDTH = 480, HEIGHT = 480;
+    protected static final int WIDTH = 640, HEIGHT = 480, SCALE = 3;
     private Thread thread;
     private boolean isRunning;
 
@@ -68,7 +68,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
         Graphics graph = bs.getDrawGraphics();
         graph.setColor(new Color(0, 135, 13));
-        graph.fillRect(0, 0, WIDTH, HEIGHT);
+        graph.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
         player.render(graph);
         world.render(graph);
         bs.show();
@@ -79,7 +79,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         long lastTime = System.nanoTime();
         long now;
         double timer = System.currentTimeMillis();
-        double fps = 60.0;
+        double fps = 180.0;
         double ns = 1000000000 / fps;
         double delta = 0;
         int frames = 0;
@@ -111,30 +111,30 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT ^ e.getKeyCode() == KeyEvent.VK_D) {
             player.right = true;
-        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT ^ e.getKeyCode() == KeyEvent.VK_A) {
             player.left = true;
         }
 
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
+        if (e.getKeyCode() == KeyEvent.VK_UP ^ e.getKeyCode() == KeyEvent.VK_W) {
             player.up = true;
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN ^ e.getKeyCode() == KeyEvent.VK_S) {
             player.down = true;
         }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT ^ e.getKeyCode() == KeyEvent.VK_D) {
             player.right = false;
-        } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        } else if (e.getKeyCode() == KeyEvent.VK_LEFT ^ e.getKeyCode() == KeyEvent.VK_A) {
             player.left = false;
         }
 
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
+        if (e.getKeyCode() == KeyEvent.VK_UP ^ e.getKeyCode() == KeyEvent.VK_W) {
             player.up = false;
-        } else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+        } else if (e.getKeyCode() == KeyEvent.VK_DOWN ^ e.getKeyCode() == KeyEvent.VK_S) {
             player.down = false;
         }
     }
