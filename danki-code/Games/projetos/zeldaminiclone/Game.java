@@ -7,6 +7,8 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 
@@ -16,19 +18,24 @@ public class Game extends Canvas implements Runnable, KeyListener {
     private Thread thread;
     private boolean isRunning;
 
-    protected Player player;
+    protected static Player player;
     protected World world;
+    protected Enemy enemy;
 
-    public Game() {
+    private List<Enemy> enemys = new ArrayList<Enemy>();
+
+    private Game() {
         this.addKeyListener(this);
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         new Spritesheet();
         initFrame();
-        player = new Player(36, 36);
         world = new World();
+        player = new Player(36, 36);
+        enemys.add(new Enemy(WIDTH - 100, 36));
+        enemys.add(new Enemy(WIDTH - 100, 256));
     }
 
-    public void initFrame() {
+    private void initFrame() {
         JFrame frame = new JFrame();
         frame.setTitle("Mini Zelda");
         frame.add(this);
@@ -39,13 +46,13 @@ public class Game extends Canvas implements Runnable, KeyListener {
         frame.setVisible(true);
     }
 
-    public void startGame() {
+    private void startGame() {
         thread = new Thread(this);
         isRunning = true;
         thread.start();
     }
 
-    public void stopGame() {
+    private void stopGame() {
         isRunning = false;
         try {
             thread.join();
@@ -54,11 +61,15 @@ public class Game extends Canvas implements Runnable, KeyListener {
         }
     }
 
-    public void update() {
+    private void update() {
         player.update();
+
+        for (int i = 0; i < enemys.size(); i++) {
+            enemys.get(i).update();
+        }
     }
 
-    public void render() {
+    private void render() {
         BufferStrategy bs = this.getBufferStrategy();
 
         if (bs == null) {
@@ -69,8 +80,12 @@ public class Game extends Canvas implements Runnable, KeyListener {
         Graphics graph = bs.getDrawGraphics();
         graph.setColor(new Color(0, 135, 13));
         graph.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
-        player.render(graph);
+
         world.render(graph);
+        player.render(graph);
+        for (int i = 0; i < enemys.size(); i++) {
+            enemys.get(i).render(graph);
+        }
         bs.show();
     }
 
@@ -79,7 +94,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         long lastTime = System.nanoTime();
         long now;
         double timer = System.currentTimeMillis();
-        double fps = 180.0;
+        double fps = 120.0;
         double ns = 1000000000 / fps;
         double delta = 0;
         int frames = 0;
@@ -121,6 +136,10 @@ public class Game extends Canvas implements Runnable, KeyListener {
             player.up = true;
         } else if (e.getKeyCode() == KeyEvent.VK_DOWN ^ e.getKeyCode() == KeyEvent.VK_S) {
             player.down = true;
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            player.shoot = true;
         }
     }
 

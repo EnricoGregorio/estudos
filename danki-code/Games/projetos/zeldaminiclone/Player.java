@@ -3,20 +3,24 @@ package zeldaminiclone;
 // import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player extends Rectangle {
-    protected boolean down, right, up, left;
-    private int speed = 1;
+    protected boolean down, right, up, left, shoot;
+    private int speed = 2;
 
     private int curFrames = 0, targetFrames = 30;
-    private int[] curAnimation = { 0, 0, 0, 0}; // Baixo, Direita, Cima, Esquerda.
-    private int curState = 0;
+    private int[] curAnimation = { 0, 0, 0, 0 }; // Baixo, Direita, Cima, Esquerda.
+    protected static int curState = 0;
 
-    public Player(int x, int y) {
+    protected static List<Bullet> bullets = new ArrayList<Bullet>();
+
+    protected Player(int x, int y) {
         super(x, y, 32, 32);
     }
 
-    public int anime(int indexCurAnimation, boolean isMove) {
+    private int anime(int indexCurAnimation, boolean isMove) {
         if (isMove) {
             curFrames++;
             if (curFrames == targetFrames) {
@@ -32,7 +36,7 @@ public class Player extends Rectangle {
         return indexCurAnimation;
     }
 
-    public void update() {
+    protected void update() {
         boolean moved = false;
 
         if (right && World.isFree(x + speed, y)) {
@@ -59,9 +63,18 @@ public class Player extends Rectangle {
             anime(0, moved);
             curState = anime(0, moved);
         }
+
+        if (shoot) {
+            shoot = false;
+            bullets.add(new Bullet(x, y, 1));
+        }
+
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).update();
+        }
     }
 
-    public void render(Graphics g) {
+    protected void render(Graphics g) {
         if (down || curState == 0) {
             g.drawImage(Spritesheet.playerDown[curAnimation[0]], x, y, 32, 32, null);
         } else if (right || curState == 1) {
@@ -70,6 +83,11 @@ public class Player extends Rectangle {
             g.drawImage(Spritesheet.playerUP[curAnimation[2]], x, y, 32, 32, null);
         } else if (left || curState == 3) {
             g.drawImage(Spritesheet.playerLeft[curAnimation[3]], x, y, 32, 32, null);
+        }
+
+        for (int i = 0; i < bullets.size(); i++) {
+            bullets.get(i).render(g);
+            ;
         }
     }
 }
