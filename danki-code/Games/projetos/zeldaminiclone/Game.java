@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 
-    protected static final int WIDTH = 640, HEIGHT = 480, SCALE = 3;
+    protected static final int WIDTH = 640, HEIGHT = 360, SCALE = 2;
     private Thread thread;
     private boolean isRunning;
 

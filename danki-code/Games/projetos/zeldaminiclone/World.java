@@ -6,26 +6,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class World {
-    protected final int WIDTH = Game.WIDTH;
-    protected final int HEIGHT = Game.HEIGHT;
+    private final int MAX_BLOCKS_W = Game.WIDTH * Game.SCALE;
+    private final int MAX_BLOCKS_H = Game.HEIGHT * Game.SCALE;
 
     private static List<Block> blocks = new ArrayList<Block>();
 
     protected World() {
-        for (int xx = 0; xx < 15 * 2; xx++) {
+        for (int xx = 0; xx < MAX_BLOCKS_W / 32; xx++) {
             blocks.add(new Block(xx * 32, 0));
         }
 
-        for (int xx = 0; xx < 15 * 2; xx++) {
-            blocks.add(new Block(xx * 32, HEIGHT - 32));
+        for (int xx = 0; xx < MAX_BLOCKS_W / 32; xx++) {
+            blocks.add(new Block(xx * 32, MAX_BLOCKS_H - 32));
         }
 
-        for (int yy = 0; yy < 15 * 2; yy++) {
+        for (int yy = 0; yy < MAX_BLOCKS_H / 32; yy++) {
             blocks.add(new Block(0, yy * 32));
         }
 
-        for (int yy = 0; yy < 15 * 2; yy++) {
-            blocks.add(new Block(WIDTH - 32, yy * 32));
+        for (int yy = 0; yy < MAX_BLOCKS_H / 32; yy++) {
+            blocks.add(new Block(MAX_BLOCKS_W - 32, yy * 32));
         }
 
         blocks.add(new Block(140, 90));
