@@ -1,17 +1,12 @@
 package zeldaminiclone;
 
-// import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class Enemy extends Rectangle {
     private int speed = 2;
     private Random rand = new Random();
-
-    protected static List<Bullet> bullets = new ArrayList<Bullet>();
 
     protected Enemy(int x, int y) {
         super(x, y, 32, 32);

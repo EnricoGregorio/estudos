@@ -20,8 +20,6 @@ public class Game extends Canvas implements Runnable, KeyListener {
 
     protected static Player player;
     protected World world;
-    protected Enemy enemy;
-
     private List<Enemy> enemys = new ArrayList<Enemy>();
 
     private Game() {
