@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/application" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="Secao10" />
+    <orderEntry type="module" module-name="Secao8" />
+    <orderEntry type="module" module-name="ExercicioPolimorfismo2" />
+    <orderEntry type="module" module-name="EnumCompExercicio3" />
+    <orderEntry type="module" module-name="EnumCompExercicio1" />
+    <orderEntry type="module" module-name="ExercicioAbstracao2" />
+    <orderEntry type="module" module-name="Exercicios" />
+    <orderEntry type="module" module-name="ExercicioPolimorfismo1" />
+    <orderEntry type="module" module-name="EnumCompExercicioFixacao2" />
+  </component>
+</module>
