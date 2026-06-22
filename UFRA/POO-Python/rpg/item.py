@@ -1,4 +1,3 @@
-
 from __future__ import annotations
 
 class Item:
@@ -14,5 +13,5 @@ class Item:
         return tipo in ("arma", "pocao")
     
     @classmethod
-    def padrao(cls) -> "Item":
+    def padrao(cls) -> Item:
         return cls("Poção", "pocao", 20)

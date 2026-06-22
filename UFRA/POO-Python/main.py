@@ -1,13 +1,36 @@
-from rpg import Personagem, Monstro, Item, Guerreiro, Mago, Arqueiro, Goblin, Dragao, Esqueleto, Combate
+from rpg import Personagem, Monstro, Item, Guerreiro, Mago, Arqueiro, Goblin, Dragao, Esqueleto, Combate, RpgError, InventarioCheioError, PersonagemMortoError
 
-print("=== Batalha 1: Guerreiro vs Goblin ===")
-Combate(Guerreiro("Boromir", 100, 20), Goblin()).lutar()
+print("=== 1. Batalha normal ===")
+guerreiro = Guerreiro("Boromir", 100, 20)
 
-print("\n=== Batalha 2: Guerreiro vs Esqueleto ===")
-Combate(Guerreiro("Boromir", 100, 20), Esqueleto()).lutar()
+Combate(guerreiro, Goblin()).lutar()
 
-print("\n=== Batalha 3: Mago vs Esqueleto ===")
-Combate(Mago("Gandalf", 80, 15), Esqueleto()).lutar()
 
-print("\n=== Batalha 4: Arqueiro vs Dragão ===")
-Combate(Arqueiro("Legolas", 90, 18, flechas=2), Dragao()).lutar()
+print("\n=== 2. Inventário cheio ===")
+try:
+    mochila = guerreiro.inventario
+
+    for i in range(11):
+        novo_item = Item(nome=f"Poção {i}", tipo="pocao", valor=20)
+        mochila.adicionar(novo_item)
+except InventarioCheioError as e:
+    print(f"Mochila lotada! {e}")
+
+
+print("\n=== 3. Personagem morto tenta atacar ===")
+guerreiro.receber_dano(999)
+
+try:
+    guerreiro.atacar(Esqueleto())
+except PersonagemMortoError as e:
+    print(f"Ataque cancelado: {e}")
+
+
+print("\n=== 4. Captura genérica com RpgError ===")
+try:
+    guerreiro.atacar(Dragao())
+    
+except RpgError as e:
+    print(f"Alguma regra do jogo impediu a ação: {e}")
+
+print("\nFim da demonstração.")

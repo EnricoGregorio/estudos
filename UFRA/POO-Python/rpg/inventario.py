@@ -1,5 +1,6 @@
 from __future__ import annotations
 from rpg.item import Item
+from .exceptions import InventarioCheioError
 
 class Inventario:
     """Representa o inventário dos nossos personagens e permite gerenciar os itens de um personagem com limite de slots."""
@@ -22,7 +23,7 @@ class Inventario:
         if not Item.tipo_valido(item.tipo):
             return False
         if len(self._itens) >= self.LIMITE:
-            return False
+            raise InventarioCheioError(f"Inventário cheio ({self.LIMITE} slots) - não coube: {item.nome}.")
         self._itens.append(item)
         return True
 
@@ -34,11 +35,3 @@ class Inventario:
     
     def listar(self) -> list[Item]:
         return list(self._itens)
-
-    def __len__(self) -> int:
-        return len(self._itens)
-    
-    def __str__(self) -> str:
-        if not self._itens:
-            return "(vazio)"
-        return ", ".join(str(i) for i in self._itens)

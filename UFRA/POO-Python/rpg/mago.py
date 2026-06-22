@@ -9,9 +9,8 @@ class Mago(Personagem):
         super().__init__(nome, vida, forca, nivel, xp)
         self.mana = mana
 
-    def atacar(self, alvo) -> int:
-        dano_base = super().atacar(alvo)
+    def _calcular_dano(self, alvo) -> int:
+        dano_base = super()._calcular_dano(alvo)
         dano_magico = 5
         
-        alvo.receber_dano(dano_magico, self.tipo_dano)
         return dano_base + dano_magico

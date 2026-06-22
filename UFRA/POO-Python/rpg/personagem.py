@@ -1,7 +1,11 @@
 from rpg.inventario import Inventario
+from .exceptions import PersonagemMortoError
 
 class Personagem:
-    """Representa um herói do RPG, com atributos de nome, vida e forca. Além disso realiza funções de atacar, receber dano, verificação da vida e status."""
+    """
+    Representa um herói genérico do RPG, com atributos de nome, vida e forca. 
+    Além disso realiza funções de atacar, receber dano, verificação da vida e status.
+    """
 
     tipo_dano: str = "fisico"
 
@@ -13,9 +17,17 @@ class Personagem:
         self.xp = xp
         self.inventario = Inventario.criar_inicial()
 
-    def atacar(self, alvo) -> int:
-        alvo.receber_dano(self.forca, self.tipo_dano)
+    def _calcular_dano(self, alvo) -> int:
         return self.forca
+
+    def atacar(self, alvo) -> int:
+        if not self.esta_vivo():
+            raise PersonagemMortoError(f"{self.nome} está morto e não pode atacar.")
+        
+        dano_calculado = self._calcular_dano(alvo)
+
+        alvo.receber_dano(dano_calculado, self.tipo_dano)
+        return dano_calculado
 
     def receber_dano(self, dano: int, tipo_dano: str = "fisico") -> None:
         self.vida = max(0, self.vida - dano)

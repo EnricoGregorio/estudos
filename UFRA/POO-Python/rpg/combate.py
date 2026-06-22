@@ -1,3 +1,5 @@
+from .exceptions import RpgError
+
 class Combate: 
     """Gerencia uma batalha entre dois combatentes."""
 
@@ -25,12 +27,16 @@ class Combate:
 
         turno = 1
         while self.atacante.esta_vivo() and self.defensor.esta_vivo():
-            resumo = self.executar_turno()
-            print(f"Turno {turno}: "
-                  f"{self.atacante.nome} causou {resumo['dano_atacante']} | "
-                  
-                  f"{self.defensor.nome} causou {resumo['dano_defensor']}")
-            turno += 1
+            try:
+                resumo = self.executar_turno()
+                print(f"Turno {turno}: "
+                    f"{self.atacante.nome} causou {resumo['dano_atacante']} | "
+                    
+                    f"{self.defensor.nome} causou {resumo['dano_defensor']}")
+                turno += 1
+            except RpgError as e:
+                print(f"\n[FALHA NO COMBATE] Alguma regra do jogo impediu a ação: {e}")
+                return None
 
         vencedor = self.atacante if self.atacante.esta_vivo() else self.defensor
         print(f"\nVencedor: {vencedor.nome}!")

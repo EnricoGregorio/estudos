@@ -7,12 +7,11 @@ class Arqueiro(Personagem):
         super().__init__(nome, vida, forca, nivel, xp)
         self.flechas = flechas
 
-    def atacar(self, alvo) -> int:
+    def _calcular_dano(self, alvo) -> int:
         if self.flechas > 0:
             self.flechas -= 1
             dano = int(self.forca * 1.5)
         else:
             dano = self.forca // 2
-        
-        alvo.receber_dano(dano, self.tipo_dano)
+
         return dano

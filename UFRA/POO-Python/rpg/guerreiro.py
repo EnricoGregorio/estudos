@@ -7,8 +7,5 @@ class Guerreiro(Personagem):
         super().__init__(nome, vida, forca, nivel, xp)
         self.arma = arma
         
-    def atacar(self, alvo) -> int:
-        dano = self.forca + 5
-        
-        alvo.receber_dano(dano, self.tipo_dano)
-        return dano
+    def _calcular_dano(self, alvo) -> int:
+        return self.forca + 5

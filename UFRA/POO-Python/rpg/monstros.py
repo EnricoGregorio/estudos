@@ -14,11 +14,8 @@ class Dragao(Monstro):
     def __init__(self, nome: str = "Dragão Vermelho", vida: int = 150, forca: int = 25, nivel: int = 5) -> None:
         super().__init__(nome, vida, forca, tipo="besta", nivel=nivel)
 
-    def atacar(self, alvo) -> int:
-        dano = self.forca + 10
-
-        alvo.receber_dano(dano, self.tipo_dano)
-        return dano
+    def _calcular_dano(self, alvo) -> int:
+        return self.forca + 10
     
 class Esqueleto(Monstro):
     """Morto-vivo resistente a dano físico."""
