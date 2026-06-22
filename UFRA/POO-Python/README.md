@@ -43,3 +43,12 @@ O projeto foi construído sem dependências externas pesadas, utilizando a bibli
    ```bash
    git clone https://github.com/EnricoGregorio/estudos.git
    ```
+2. Navegue até o diretório da disciplina:
+   ```bash
+   cd estudos/UFRA/POO-Python
+   ```
+3. Execute a simulação de combate a partir da raiz do pacote:
+   ```bash
+   python3 main.py
+   ```
+> Nota: O arquivo `main.py` atua como um script de demonstração, instanciando os heróis, gerando os cenários de batalha e exercitando as capturas de exceção do sistema
