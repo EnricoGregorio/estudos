@@ -1,7 +1,30 @@
-Udemy/Java/.DS_Store
-Udemy/.DS_Store
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Packaging / build
+build/
+dist/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# IDE / editor
+.vscode/
+.idea/
+
+# OS files
 .DS_Store
-.DS_Store
-Udemy/.DS_Store
-Udemy/Java/.DS_Store
-Udemy/Java/Exercicios/.DS_Store
+Thumbs.db
