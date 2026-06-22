@@ -1,48 +1,37 @@
-import random as rand
 from rpg.inventario import Inventario
 
 class Personagem:
-    """Representa um personagem do RPG, com atributos de nome, vida, ataque e defesa. Além disso realiza funções de atacar, receber dano, verificação da vida e status."""
+    """Representa um herói do RPG, com atributos de nome, vida e forca. Além disso realiza funções de atacar, receber dano, verificação da vida e status."""
 
-    def __init__(self, nome: str, vida: int = 100, ataque: int = 3, defesa: int = 10):
+    tipo_dano: str = "fisico"
+
+    def __init__(self, nome: str, vida: int, forca: int, nivel: int = 1, xp: int = 0) -> None:
         self.nome = nome
         self.vida = vida
-        self.ataque = ataque
-        self.defesa = defesa
-        self.inventario = Inventario.criarInicial()
+        self.forca = forca
+        self.nivel = nivel
+        self.xp = xp
+        self.inventario = Inventario.criar_inicial()
 
-    def estaVivo(self) -> bool:
-        if self.vida > 0:
-            return True
-        else:
+    def atacar(self, alvo) -> int:
+        alvo.receber_dano(self.forca, self.tipo_dano)
+        return self.forca
+
+    def receber_dano(self, dano: int, tipo_dano: str = "fisico") -> None:
+        self.vida = max(0, self.vida - dano)
+
+    def esta_vivo(self) -> bool:
+        return self.vida > 0
+
+    def usar_item(self, nome_item: str) -> bool:
+        item = self.inventario.retirar(nome_item)
+        if item is None:
             return False
-        
-    def receberDano(self, dano: int) -> None:
-        self.vida -= dano
-
-        # Verificação para garantir que a vida não fique abaixo de zero.
-        if self.vida < 0:
-            self.vida = 0
-
-        print(f"{self.nome} recebeu {dano} de dano!"
-              f"\nHP atual: {self.vida}.")
-        
-        if self.vida == 0:
-            print(f"{self.nome} foi derrotado!")
+        if item.tipo == "pocao":
+            self.vida += item.valor
+            print(f"\n{self.nome} usou {item.nome} e recuperou {item.valor} pontos de vida.\nHP atual: {self.vida}.")
+            return True
+        return False
     
-    def atacar(self, alvo: Personagem) -> None:
-        # Calculo o dano com a variação aleatória.
-        variacao = rand.randint(-3, 3)
-        dano = (self.ataque - alvo.defesa) + variacao
-
-        print(f"{self.nome} atacou o {alvo.nome} e causou {dano} de dano!")
-        alvo.receberDano(max(0, dano))
-
-    def info(self) -> None:
-        print(f"[{self.nome}] Vida: {self.vida} | ATK: {self.ataque} | DEF: {self.defesa}")
-
-    def usarItem(self, nomeItem: str) -> None:
-        itemRemovido = self.inventario.remover(nomeItem)
-        if not itemRemovido == None:
-            self.vida += itemRemovido.valor
-            print(f"{self.nome} usou {itemRemovido.nome} e recuperou {itemRemovido.valor} pontos de vida.\nHP atual: {self.vida}.")
+    def mostrar_status(self) -> None:
+        print(f"[{self.nome}] Nível: {self.nivel} | Vida: {self.vida} | XP: {self.xp}")

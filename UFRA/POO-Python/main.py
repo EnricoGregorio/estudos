@@ -1,31 +1,13 @@
-from rpg import Personagem, Monstro
+from rpg import Personagem, Monstro, Item, Guerreiro, Mago, Arqueiro, Goblin, Dragao, Esqueleto, Combate
 
-heroi = Personagem("Enrico", 100, 45, 15)
-monstro = Monstro("Goblin", 80, 35, 10)
+print("=== Batalha 1: Guerreiro vs Goblin ===")
+Combate(Guerreiro("Boromir", 100, 20), Goblin()).lutar()
 
-print("=" * 40 + f"\nBATALHA: {heroi.nome} vs. {monstro.nome}\n" + "=" * 40)
+print("\n=== Batalha 2: Guerreiro vs Esqueleto ===")
+Combate(Guerreiro("Boromir", 100, 20), Esqueleto()).lutar()
 
-turno = 0
+print("\n=== Batalha 3: Mago vs Esqueleto ===")
+Combate(Mago("Gandalf", 80, 15), Esqueleto()).lutar()
 
-while heroi.estaVivo() and monstro.estaVivo():
-    turno += 1
-
-    print(f"\n--- Turno {turno} ---")
-
-    heroi.atacar(monstro)
-    if not monstro.estaVivo():
-        continue
-
-    monstro.atacar(heroi)
-    if not heroi.estaVivo():
-        continue
-        
-    heroi.info()
-    monstro.info()
-
-print("\n" + "=" * 50)
-if not heroi.estaVivo():
-    print(f"DERROTA: {heroi.nome} perdeu para {monstro.nome} em {turno} turnos.")
-else:
-    print(f"VITÓRIA: {heroi.nome} ganhou do {monstro.nome} em {turno} turnos.")
-print("=" * 50)
+print("\n=== Batalha 4: Arqueiro vs Dragão ===")
+Combate(Arqueiro("Legolas", 90, 18, flechas=2), Dragao()).lutar()

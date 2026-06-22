@@ -3,3 +3,8 @@ from rpg.personagem import Personagem
 from rpg.monstro import Monstro
 from rpg.inventario import Inventario
 from rpg.item import Item
+from rpg.guerreiro import Guerreiro
+from rpg.mago import Mago
+from rpg.arqueiro import Arqueiro
+from rpg.monstros import Goblin, Dragao, Esqueleto
+from rpg.combate import Combate

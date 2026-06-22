@@ -1,42 +1,44 @@
+from __future__ import annotations
 from rpg.item import Item
 
 class Inventario:
-    """Representa o inventário dos nossos personagens."""
+    """Representa o inventário dos nossos personagens e permite gerenciar os itens de um personagem com limite de slots."""
 
-    def __init__(self):
+    LIMITE = 10
+
+    def __init__(self) -> None:
         self._itens: list[Item] = []
 
-    def adicionar(self, item: Item) -> None:
-        self._itens.append(item)
-        print(f"- O item {item.nome} que {item.descricao} foi adicionado ao inventário.")
-
-    def remover(self, nome: str) -> Item:
-        for indice, item in enumerate(self._itens):
-            if item.nome == nome.capitalize():
-                self._itens.pop(indice)
-                return item
-        print(f"O item '{nome}' não existe no inventário.")
-        return None
-    
-    def listar(self) -> None:
-        if len(self._itens) == 0:
-            print("Inventário vazio.")
-        else:
-            print("--- Inventário ---")
-            for indice, item in enumerate(self._itens, 1):
-                print(f"{indice} - {item.nome} de {item.descricao} que possui {item.valor} de pontos.")
-            print(f"Total de itens: {len(self._itens)}")
-
     @classmethod
-    def criarInicial(cls):
+    def criar_inicial(cls):
         """Cria e devolve um inventário já populado com itens iniciais padrão."""
 
-        _novoInventario = cls()
-        
-        pocao = Item("Poção", "restaura pontos de vida", 30)
-        adaga = Item("Adaga", "causa dano perfurante", 70)
+        novo_inv = cls()
+        novo_inv.adicionar(Item.padrao())
+        novo_inv.adicionar(Item.padrao())
+        return novo_inv
 
-        _novoInventario.adicionar(pocao)
-        _novoInventario.adicionar(adaga)
+    def adicionar(self, item: Item) -> bool:
+        if not Item.tipo_valido(item.tipo):
+            return False
+        if len(self._itens) >= self.LIMITE:
+            return False
+        self._itens.append(item)
+        return True
 
-        return _novoInventario
+    def retirar(self, nome: str) -> Item | None:
+        for indice, item in enumerate(self._itens):
+            if item.nome == nome:
+                return self._itens.pop(indice)
+        return None
+    
+    def listar(self) -> list[Item]:
+        return list(self._itens)
+
+    def __len__(self) -> int:
+        return len(self._itens)
+    
+    def __str__(self) -> str:
+        if not self._itens:
+            return "(vazio)"
+        return ", ".join(str(i) for i in self._itens)

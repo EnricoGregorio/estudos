@@ -1,40 +1,24 @@
-import random as rand
-
 class Monstro:
-    """Representa um monstro do RPG, com atributos de nome, vida, ataque e defesa. Além disso realiza funções de atacar, receber dano, verificação da vida e status."""
+    """Representa um monstro do RPG, com atributos de nome, vida e forca, mas sem inventário. Além disso realiza funções de atacar, receber dano, verificação da vida e status."""
 
-    def __init__(self, nome: str, vida: int = 80, ataque: int = 30, defesa: int = 8):
+    tipo_dano: str = "fisico"
+
+    def __init__(self, nome: str, vida: int, forca: int, tipo: str, nivel: int = 1) -> None:
         self.nome = nome
         self.vida = vida
-        self.ataque = ataque
-        self.defesa = defesa
+        self.forca = forca
+        self.tipo = tipo
+        self.nivel = nivel
 
-    def estaVivo(self) -> bool:
-        if self.vida > 0:
-            return True
-        else:
-            return False
-        
-    def receberDano(self, dano: int) -> None:
-        self.vida -= dano
+    def atacar(self, alvo) -> int:
+        alvo.receber_dano(self.forca, self.tipo_dano)
+        return self.forca
 
-        # Verificação para garantir que a vida não fique abaixo de zero.
-        if self.vida < 0:
-            self.vida = 0
+    def receber_dano(self, dano: int, tipo_dano: str = "fisico") -> None:
+        self.vida = max(0, self.vida - dano)
 
-        print(f"{self.nome} recebeu {dano} de dano!"
-              f"\nHP atual: {self.vida}.")
-        
-        if self.vida == 0:
-            print(f"{self.nome} foi derrotado!")
-    
-    def atacar(self, alvo: Monstro) -> None:
-        # Calculo o dano com a variação aleatória.
-        variacao = rand.randint(-3, 3)
-        dano = (self.ataque - alvo.defesa) + variacao
+    def esta_vivo(self) -> bool:
+        return self.vida > 0
 
-        print(f"{self.nome} atacou o {alvo.nome} e causou {dano} de dano!")
-        alvo.receberDano(max(0, dano))
-
-    def info(self) -> None:
-        print(f"[{self.nome}] Vida: {self.vida} | ATK: {self.ataque} | DEF: {self.defesa}")
+    def mostrar_status(self) -> None:
+        print(f"[{self.nome}] Tipo: {self.tipo} | Nível: {self.nivel} | Vida: {self.vida}")
