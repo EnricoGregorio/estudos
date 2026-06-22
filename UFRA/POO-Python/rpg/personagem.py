@@ -11,11 +11,20 @@ class Personagem:
 
     def __init__(self, nome: str, vida: int, forca: int, nivel: int = 1, xp: int = 0) -> None:
         self.nome = nome
+        self.vida_maxima = vida
         self.vida = vida
         self.forca = forca
         self.nivel = nivel
         self.xp = xp
         self.inventario = Inventario.criar_inicial()
+
+    @property
+    def vida(self):
+        return self._vida
+    
+    @vida.setter
+    def vida(self, valor: int) -> None:
+        self._vida = max(0, min(valor, self.vida_maxima))
 
     def _calcular_dano(self, alvo) -> int:
         return self.forca
@@ -30,7 +39,7 @@ class Personagem:
         return dano_calculado
 
     def receber_dano(self, dano: int, tipo_dano: str = "fisico") -> None:
-        self.vida = max(0, self.vida - dano)
+        self.vida -= dano
 
     def esta_vivo(self) -> bool:
         return self.vida > 0
