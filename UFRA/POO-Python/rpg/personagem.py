@@ -1,4 +1,5 @@
 import random as rand
+from rpg.inventario import Inventario
 
 class Personagem:
     """Representa um personagem do RPG, com atributos de nome, vida, ataque e defesa. Além disso realiza funções de atacar, receber dano, verificação da vida e status."""
@@ -8,6 +9,7 @@ class Personagem:
         self.vida = vida
         self.ataque = ataque
         self.defesa = defesa
+        self.inventario = Inventario.criarInicial()
 
     def estaVivo(self) -> bool:
         if self.vida > 0:
@@ -38,3 +40,9 @@ class Personagem:
 
     def info(self) -> None:
         print(f"[{self.nome}] Vida: {self.vida} | ATK: {self.ataque} | DEF: {self.defesa}")
+
+    def usarItem(self, nomeItem: str) -> None:
+        itemRemovido = self.inventario.remover(nomeItem)
+        if not itemRemovido == None:
+            self.vida += itemRemovido.valor
+            print(f"{self.nome} usou {itemRemovido.nome} e recuperou {itemRemovido.valor} pontos de vida.\nHP atual: {self.vida}.")

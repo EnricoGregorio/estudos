@@ -1,5 +1,4 @@
-from personagem import Personagem
-from monstro import Monstro
+from rpg import Personagem, Monstro
 
 heroi = Personagem("Enrico", 100, 45, 15)
 monstro = Monstro("Goblin", 80, 35, 10)
