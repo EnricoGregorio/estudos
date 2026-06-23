@@ -25,7 +25,11 @@ class PersonagemMortoError(RpgError):
     pass
 
 class XPInvalidoError(RpgError):
-    """Chega na aula 9."""
+    """
+    Lançada quando alguém tentar fazer o XP regredir.
+
+    Ela será levantada pelo setter de xp quando alguém tentar fazer o XP regredir.
+    """
     pass
 
 class MonstroMorteError(RpgError):

@@ -1,5 +1,5 @@
 from rpg.inventario import Inventario
-from .exceptions import PersonagemMortoError
+from .exceptions import PersonagemMortoError, XPInvalidoError
 
 class Personagem:
     """
@@ -15,16 +15,59 @@ class Personagem:
         self.vida = vida
         self.forca = forca
         self.nivel = nivel
+        self._xp = 0
         self.xp = xp
         self.inventario = Inventario.criar_inicial()
 
     @property
-    def vida(self):
+    def vida(self) -> int:
         return self._vida
     
     @vida.setter
     def vida(self, valor: int) -> None:
         self._vida = max(0, min(valor, self.vida_maxima))
+
+    @property
+    def nivel(self) -> int:
+        return self._nivel
+    
+    @nivel.setter
+    def nivel(self, valor: int) -> None:
+        if valor < 1:
+            raise ValueError(f"Nível deve ser >= 1, recebido {valor}.")
+        self._nivel = valor
+
+    @property
+    def xp(self) -> int:
+        return self._xp
+    
+    @xp.setter
+    def xp(self, valor: int) -> None:
+        if valor < self.xp:
+            raise XPInvalidoError(f"XP não pode regredir: atual {self._xp}, recebido {valor}.")
+        self._xp = valor
+
+    def ganhar_xp(self, quantidade: int) -> None:
+        if quantidade <= 0:
+            return
+        
+        self.xp += quantidade
+
+        while self.xp >= self.nivel * 100:
+            self._nivel += 1
+            print(f"{self.nome} subiu para o nível {self.nivel}!")
+            
+            # Implementação da Atividade Extra:
+            self.vida_maxima += 10
+            self.vida = self.vida_maxima
+            """
+            Justificativa:
+            A ordem deve obrigatoriamente ajustar o teto primeiro e só depois 
+            atribuir a cura à property 'vida'. Se tentássemos curar antes de 
+            expandir o teto, a validação do setter (clamp) cortaria o valor 
+            no limite antigo.
+            """
+
 
     def _calcular_dano(self, alvo) -> int:
         return self.forca
@@ -55,4 +98,4 @@ class Personagem:
         return False
     
     def mostrar_status(self) -> None:
-        print(f"[{self.nome}] Nível: {self.nivel} | Vida: {self.vida} | XP: {self.xp}")
+        print(f"[{self.nome}] Nível: {self.nivel} | Vida: {self.vida}/{self.vida_maxima} | XP: {self.xp}")

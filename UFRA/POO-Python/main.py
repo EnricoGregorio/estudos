@@ -1,36 +1,40 @@
-from rpg import Personagem, Monstro, Item, Guerreiro, Mago, Arqueiro, Goblin, Dragao, Esqueleto, Combate, RpgError, InventarioCheioError, PersonagemMortoError
+from rpg import Personagem, Monstro, Item, Guerreiro, Mago, Arqueiro, Goblin, Dragao, Esqueleto, Combate, RpgError, InventarioCheioError, PersonagemMortoError, XPInvalidoError
 
-print("=== 1. Batalha normal ===")
-guerreiro = Guerreiro("Boromir", 100, 20)
+print("1. Demonstração do Clamp na Vida")
+# Atribuição fora do intervalo demonstrando o grampeamento no piso e no teto
+heroi = Guerreiro(nome="Boromir", vida=100, forca=20)
+heroi.vida = -50
+print(f"Vida após atribuir -50: {heroi.vida}")
+heroi.vida = 999
+print(f"Vida após atribuir 999: {heroi.vida}")
 
-Combate(guerreiro, Goblin()).lutar()
-
-
-print("\n=== 2. Inventário cheio ===")
+print("\n2. Demonstração de Rejeição no Nível")
+# Tentativa de nível inválido capturando o ValueError
 try:
-    mochila = guerreiro.inventario
+    heroi.nivel = 0
+except ValueError as e:
+    print(f"Erro capturado: {e}")
 
-    for i in range(11):
-        novo_item = Item(nome=f"Poção {i}", tipo="pocao", valor=20)
-        mochila.adicionar(novo_item)
-except InventarioCheioError as e:
-    print(f"Mochila lotada! {e}")
-
-
-print("\n=== 3. Personagem morto tenta atacar ===")
-guerreiro.receber_dano(999)
-
+print("\n3. Demonstração de Rejeição no XP")
+# Tentativa de regredir o XP capturando a XPInvalidoError
+heroi.ganhar_xp(120)
 try:
-    guerreiro.atacar(Esqueleto())
-except PersonagemMortoError as e:
-    print(f"Ataque cancelado: {e}")
+    heroi.xp = 50
+except XPInvalidoError as e:
+    print(f"Erro capturado: {e}")
 
+print("\n4. Demonstração de Combate com Recompensa de XP")
+# Combate em que o herói vence, ganha XP e sobe de nível
+heroi = Guerreiro(nome="Aragorn", vida=100, forca=15)
+goblin = Goblin()
 
-print("\n=== 4. Captura genérica com RpgError ===")
-try:
-    guerreiro.atacar(Dragao())
-    
-except RpgError as e:
-    print(f"Alguma regra do jogo impediu a ação: {e}")
+print("Status antes do combate:")
+heroi.mostrar_status()
+print("-" * 40)
 
-print("\nFim da demonstração.")
+batalha = Combate(heroi, goblin)
+batalha.lutar()
+
+print("-" * 40)
+print("Status depois do combate:")
+heroi.mostrar_status()
