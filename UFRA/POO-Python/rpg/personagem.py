@@ -22,6 +22,7 @@ class Personagem(ABC):
         self.inventario = Inventario.criar_inicial()
         Personagem._contador_id += 1
         self._id = Personagem._contador_id
+        self.efeitos_ativos = []
 
     @property
     def vida(self) -> int:
@@ -103,6 +104,9 @@ class Personagem(ABC):
     
     def mostrar_status(self) -> None:
         print(f"[{self.nome}] Nível: {self.nivel} | Vida: {self.vida}/{self.vida_maxima} | XP: {self.xp}")
+
+    def adicionar_efeito(self, efeito) -> None:
+        self.efeitos_ativos.append(efeito)
 
     @abstractmethod
     def golpe_especial(self, alvo) -> int:

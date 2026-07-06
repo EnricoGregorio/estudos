@@ -1,4 +1,5 @@
 from rpg.personagem import Personagem
+from rpg.efeito import Efeito
 
 class Mago(Personagem):
     """Herói focado em magia."""
@@ -14,6 +15,14 @@ class Mago(Personagem):
         dano_magico = 5
         
         return dano_base + dano_magico
+    
+    def atacar(self, alvo) -> int:
+        dano = self._calcular_dano(alvo)
+        alvo.receber_dano(dano, "magico")
+
+        queimadura = Efeito("queimadura", -5, 3)
+        alvo.adicionar_efeito(queimadura)
+        return dano
 
     def golpe_especial(self, alvo) -> int:
         dano = self.forca + 10

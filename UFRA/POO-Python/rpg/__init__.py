@@ -9,3 +9,4 @@ from rpg.arqueiro import Arqueiro
 from rpg.monstros import Goblin, Dragao, Esqueleto
 from rpg.combate import Combate
 from rpg.exceptions import RpgError, InventarioCheioError, PersonagemMortoError, XPInvalidoError, MonstroMorteError
+from rpg.efeito import Efeito

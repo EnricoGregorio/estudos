@@ -14,6 +14,7 @@ class Monstro:
         self.forca = forca
         self.tipo = tipo
         self.nivel = nivel
+        self.efeitos_ativos = []
 
     def _calcular_dano(self, alvo):
         return self.forca
@@ -35,3 +36,6 @@ class Monstro:
 
     def mostrar_status(self) -> None:
         print(f"[{self.nome}] Tipo: {self.tipo} | Nível: {self.nivel} | Vida: {self.vida}")
+
+    def adicionar_efeito(self, efeito) -> None:
+        self.efeitos_ativos.append(efeito)

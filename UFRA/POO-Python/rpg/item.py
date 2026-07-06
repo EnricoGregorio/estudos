@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 class Item:
     """Representa qualquer item do jogo, podendo ser uma poção, uma arma ou um escudo, que pode ser guardado no inventário."""
 
