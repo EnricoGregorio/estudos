@@ -9,3 +9,10 @@ class Guerreiro(Personagem):
         
     def _calcular_dano(self, alvo) -> int:
         return self.forca + 5
+
+    def golpe_especial(self, alvo) -> int:
+        dano = self.forca * 2
+
+        alvo.receber_dano(dano, "fisico")
+        
+        return dano

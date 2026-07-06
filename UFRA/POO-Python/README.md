@@ -32,6 +32,7 @@ Para fins de avaliação ou estudo, os pilares da orientação a objetos podem s
 * **Aulas 5 e 6 - Herança e Polimorfismo:** Desmembramento da classe base em especializações. Introdução da classe `Combate` gerenciando a interação entre objetos.
 * **Aulas 7 e 8 - Programação Defensiva:** Blindagem do domínio. Implementação de uma hierarquia própria de exceções (`RpgError`, `InventarioCheioError`, `PersonagemMortoError`) e tratamento de erros na borda do sistema.
 * **Aula 9 - Encapsulamento Idiomático e Decorators:** Aprofundamento do pilar de encapsulamento através da resposta idiomática do Python aos modificadores *private* e *protected* do Java. Desmistificação dos *decorators* (o mecanismo por trás do `@`) e conversão de atributos em `@property` com rotinas de *getter*, *setter* e *deleter*.
+* **Aula 10 - Classes Abstratas e Sobrecargas de Operadores:** Aprendi o que sobre **calsses abstratras**, porquê ela não pode ser instanciada e quando vale a pena criar uma (`ABC` e `@abstractmethod`). Além disso, foi visto a diferença entre **identidade** (`is`) e **igualdade** (`==`), e como mudar a regra do `==` com `__eq__`. Por fim, aprendi sobre **sobrecarga de operadores** pelos *métodos mágicos*: `__str__`, `__repr__`, `__eq__`, `__hash__` e `__lt__`. Esses temas fecham o pilar da **abstração** com vocabulário formal e dão sequência ao **polimorfismo** da Aula 6, agora na forma de operadores que respondem que respondem aos nossos objetos.
 
 ---
 

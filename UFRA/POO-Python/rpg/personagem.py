@@ -1,13 +1,15 @@
 from rpg.inventario import Inventario
 from .exceptions import PersonagemMortoError, XPInvalidoError
+from abc import ABC, abstractmethod
 
-class Personagem:
+class Personagem(ABC):
     """
     Representa um herói genérico do RPG, com atributos de nome, vida e forca. 
     Além disso realiza funções de atacar, receber dano, verificação da vida e status.
     """
 
     tipo_dano: str = "fisico"
+    _contador_id = 0
 
     def __init__(self, nome: str, vida: int, forca: int, nivel: int = 1, xp: int = 0) -> None:
         self.nome = nome
@@ -18,6 +20,8 @@ class Personagem:
         self._xp = 0
         self.xp = xp
         self.inventario = Inventario.criar_inicial()
+        Personagem._contador_id += 1
+        self._id = Personagem._contador_id
 
     @property
     def vida(self) -> int:
@@ -99,3 +103,24 @@ class Personagem:
     
     def mostrar_status(self) -> None:
         print(f"[{self.nome}] Nível: {self.nivel} | Vida: {self.vida}/{self.vida_maxima} | XP: {self.xp}")
+
+    @abstractmethod
+    def golpe_especial(self, alvo) -> int:
+        pass
+
+    def  __str__(self) -> str:
+        classe = self.__class__.__name__
+        return f"{self.nome} ({classe} - Nível {self.nivel})."
+    
+    def __repr__(self) -> str:
+        classe = self.__class__.__name__
+        return (f"{classe}(id={self._id}, nome='{self.nome}', vida={self.vida}/{self.vida_maxima}, nivel={self.nivel}, xp={self.xp})")
+    
+    def __eq__(self, outro) -> bool:
+        if not isinstance(outro, Personagem):
+            return NotImplemented
+        
+        return self._id == outro._id
+    
+    def __hash__(self) -> int:
+        return hash(self._id)

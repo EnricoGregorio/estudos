@@ -15,3 +15,13 @@ class Arqueiro(Personagem):
             dano = self.forca // 2
 
         return dano
+    
+    def golpe_especial(self, alvo) -> int:
+        if hasattr(self, 'flechas') and self.flechas >= 3:
+            self.flechas -= 3
+            dano = self.forca * 3
+        else:
+            dano = self.forca // 2
+
+        alvo.receber_dano(dano, "fisico")
+        return dano

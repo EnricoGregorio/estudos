@@ -14,3 +14,10 @@ class Mago(Personagem):
         dano_magico = 5
         
         return dano_base + dano_magico
+
+    def golpe_especial(self, alvo) -> int:
+        dano = self.forca + 10
+
+        alvo.receber_dano(dano, "magico")
+    
+        return dano
