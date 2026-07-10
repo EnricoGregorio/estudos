@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 class Item:
     """Representa qualquer item do jogo, podendo ser uma poção, uma arma ou um escudo, que pode ser guardado no inventário."""
 
@@ -11,5 +13,5 @@ class Item:
         return tipo in ("arma", "pocao")
     
     @classmethod
-    def padrao(cls) -> Item:
+    def padrao(cls) -> "Item":
         return cls("Poção", "pocao", 20)
