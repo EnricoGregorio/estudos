@@ -35,3 +35,6 @@ class Inventario:
     
     def listar(self) -> list[Item]:
         return list(self._itens)
+    
+    def filtrar(self, regra) -> list[Item]:
+        return list(filter(regra, self._itens))
