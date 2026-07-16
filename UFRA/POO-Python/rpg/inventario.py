@@ -1,3 +1,4 @@
+from __future__ import annotations
 from rpg.item import Item
 from .exceptions import InventarioCheioError
 
