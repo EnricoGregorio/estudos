@@ -1,4 +1,5 @@
 from rpg.monstro import Monstro
+from rpg.item import Item
 
 class Goblin(Monstro):
     """Monstro fraco. Herda tudo da base - categorização pura."""
@@ -27,3 +28,14 @@ class Esqueleto(Monstro):
         if tipo_dano == "fisico":
             dano = dano // 2
         super().receber_dano(dano, tipo_dano)
+
+def gerar_loot(monstro):
+    yield Item("Poção menor", "pocao", 20)
+
+    # Se o monstro for de nível 3 ou mais, larga uma poção extra.
+    if monstro.nivel >= 3:
+        yield Item("Poção Maior", "pocao", 50)
+
+    # Se o monstro for um Dragão, larga uma arma.
+    if monstro.tipo == "besta" or monstro.tipo == "dragao":
+        yield Item("Presa de Dragão", "arma", 80)
