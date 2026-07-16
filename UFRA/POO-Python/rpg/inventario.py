@@ -38,3 +38,9 @@ class Inventario:
     
     def filtrar(self, regra) -> list[Item]:
         return list(filter(regra, self._itens))
+
+    def __iter__(self):
+        return iter(self._itens)
+
+    def __getitem__(self, indice: int):
+        return self._itens[indice]
