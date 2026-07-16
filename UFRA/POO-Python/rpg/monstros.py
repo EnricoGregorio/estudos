@@ -34,7 +34,7 @@ def gerar_loot(monstro):
 
     # Se o monstro for de nível 3 ou mais, larga uma poção extra.
     if monstro.nivel >= 3:
-        yield Item("Poção Maior", "pocao", 50)
+        yield Item("Poção maior", "pocao", 50)
 
     # Se o monstro for um Dragão, larga uma arma.
     if monstro.tipo == "besta" or monstro.tipo == "dragao":
