@@ -17,7 +17,7 @@ def main():
 
     # Lança a primeira magia do grimório.
     dano = gandalf.golpe_especial(goblin)
-    print(f"Gandalf causou {dano} de dano! Vida do Goblin: {goblin.vida}")
+    print(f"{gandalf.nome} causou {dano} de dano! Vida do Goblin: {goblin.vida}")
 
     # Consulta o inventário com for in, e com acesso ao inventario[0].
     print("\n\nPasso 3 - Inventário como Coleção:")

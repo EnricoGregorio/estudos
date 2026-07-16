@@ -7,5 +7,5 @@ class Magia:
 
     def __call__(self, alvo) -> int:
         alvo.receber_dano(self.dano, "magico")
-        print(f"Magia '{self.nome}' lançada! Causou {self.dano} de dano.")
+        # print(f"Magia '{self.nome}' lançada! Causou {self.dano} de dano.")
         return self.dano

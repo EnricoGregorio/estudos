@@ -38,6 +38,14 @@ class Inventario:
     
     def filtrar(self, regra) -> list[Item]:
         return list(filter(regra, self._itens))
+    
+    def __len__(self) -> int:
+        return len(self._itens)
+
+    def __str__(self) -> str:
+        if not self._itens:
+            return "(vazio)"
+        return ", ".join(str(i) for i in self._itens)
 
     def __iter__(self):
         return iter(self._itens)
