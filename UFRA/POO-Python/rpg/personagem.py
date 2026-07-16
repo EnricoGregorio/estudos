@@ -1,6 +1,7 @@
 from rpg.inventario import Inventario
-from .exceptions import PersonagemMortoError, XPInvalidoError
+from rpg.exceptions import PersonagemMortoError, XPInvalidoError
 from abc import ABC, abstractmethod
+from rpg.efeito import Efeito
 
 class Personagem(ABC):
     """
@@ -22,7 +23,7 @@ class Personagem(ABC):
         self.inventario = Inventario.criar_inicial()
         Personagem._contador_id += 1
         self._id = Personagem._contador_id
-        self.efeitos_ativos = []
+        self.efeitos_ativos: list[Efeito] = []
 
     @property
     def vida(self) -> int:
@@ -105,7 +106,7 @@ class Personagem(ABC):
     def mostrar_status(self) -> None:
         print(f"[{self.nome}] Nível: {self.nivel} | Vida: {self.vida}/{self.vida_maxima} | XP: {self.xp}")
 
-    def adicionar_efeito(self, efeito) -> None:
+    def adicionar_efeito(self, efeito: Efeito) -> None:
         self.efeitos_ativos.append(efeito)
 
     @abstractmethod
