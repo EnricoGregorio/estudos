@@ -1,6 +1,5 @@
 from rpg.item import Item
 from .exceptions import InventarioCheioError
-from typing import Optional
 
 class Inventario:
     """Representa o inventário dos nossos personagens e permite gerenciar os itens de um personagem com limite de slots."""
@@ -27,7 +26,7 @@ class Inventario:
         self._itens.append(item)
         return True
 
-    def retirar(self, nome: str) -> Optional[Item]:
+    def retirar(self, nome: str) -> Item | None:
         for indice, item in enumerate(self._itens):
             if item.nome == nome:
                 return self._itens.pop(indice)
