@@ -99,7 +99,6 @@ class Personagem(ABC):
             return False
         if item.tipo == "pocao":
             self.vida += item.valor
-            print(f"\n{self.nome} usou {item.nome} e recuperou {item.valor} pontos de vida.\nHP atual: {self.vida}.")
             return True
         return False
     
