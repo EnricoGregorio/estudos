@@ -31,6 +31,7 @@ cor_sistema = "#F3F3F3"
 # 1.3. Fontes:
 fonte_principal = "Menlo"
 
+
 # 2. A JANELA e o PAINEL DE STATUS
 janela = tk.Tk()
 janela.title("RPG de Turnos")
@@ -51,6 +52,7 @@ lbl_monstro.pack(pady=6)
 lbl_log = tk.Label(janela, font=(fonte_principal, 12), fg=cor_sistema, wraplength=520, justify="center")
 lbl_log.pack(pady=14)
 
+# --- painel do inventário ---
 lbl_inventario = tk.Label(janela, font=(fonte_principal, 12), fg=cor_mochila, wraplength=520)
 lbl_inventario.pack(pady=10)
 
@@ -117,6 +119,7 @@ def acao_atacar():
     atualizar_tela()
     checar_fim()
 
+
 def acao_golpe():
     global cooldown_especial
 
@@ -141,6 +144,7 @@ def acao_golpe():
         
     atualizar_tela()
     checar_fim()
+
 
 def acao_pocao():    
     if jogo_acabou():
@@ -167,6 +171,7 @@ def acao_pocao():
         
     atualizar_tela()
 
+
 def acao_reiniciar():
     global heroi, monstro, cooldown_especial
     
@@ -191,6 +196,7 @@ tk.Button(janela, text="Usar Poção", width=16, height=2, font=(fonte_princip
 
 tk.Button(janela, text="Reiniciar Jogo", width=18, height=2, font=(fonte_principal, 12), 
           command=acao_reiniciar).pack(pady=24)
+
 
 # 6. COMEÇA
 atualizar_tela()
