@@ -4,7 +4,7 @@ from tkinter import messagebox
 # 1. OS OBJETOS DO JOGO
 from rpg import Mago, Dragao
 
-# 1.1. Características iniciais dos seres (Heroi e Monstro) do jogo.
+# 1.1. Características iniciais do herói e do monstro do jogo (blueprints).
 heroi_bp = {
     "nome": "Patolino, o Mago",
     "vida": 100,
@@ -34,7 +34,7 @@ fonte_principal = "Menlo"
 
 # 2. A JANELA e o PAINEL DE STATUS
 janela = tk.Tk()
-janela.title("RPG de Turnos")
+janela.title("RPG de Turnos do Enrico")
 janela.geometry("720x480")
 janela.config(bg=cor_bg)
 
@@ -59,12 +59,16 @@ lbl_inventario.pack(pady=10)
 
 # 3. ATUALIZAR A TELA
 def atualizar_tela():
+    # Gera as barras visuais com tamanho de 10 caracteres.
+    barra_heroi = desenhar_barra(heroi.vida, heroi.vida_maxima, tamanho=10)
+    barra_monstro = desenhar_barra(monstro.vida, monstro_bp["vida"], tamanho=10)
+    
     lbl_heroi.config(
         text=f"{heroi.nome} ({type(heroi).__name__})   |   "
-             f"vida {heroi.vida}/{heroi.vida_maxima}   |   "
+             f"vida {barra_heroi}   |   "
              f"nível {heroi.nivel}   |   XP {heroi.xp}")
     lbl_monstro.config(
-        text=f"{monstro.nome} ({monstro.tipo})   |   vida {monstro.vida}"
+        text=f"{monstro.nome} ({monstro.tipo})   |   vida {barra_monstro}"
              f"   |   nível {monstro.nivel}")
     
     # Lê a lista de itens e extrai só os nomes.
@@ -94,6 +98,18 @@ def checar_fim():
         messagebox.showinfo("Fim da batalha", f"{monstro.nome} derrotou {heroi.nome}...")
 
 
+def desenhar_barra(vida_atual, vida_maxima, tamanho=10):
+    # Calcula e desenha uma barra de vida em texto [######----] e
+    # evita que a vida fique negativa visualmente se o dano passar de zero.
+    vida = max(0, vida_atual) 
+    
+    # Calcula quantos # deve desenhar.
+    preenchidos = int((vida / vida_maxima) * tamanho)
+    vazios = tamanho - preenchidos
+    
+    return "[" + ("#" * preenchidos) + ("-" * vazios) + "]"
+
+
 # 4. AS AÇÕES.
 cooldown_especial = 0
 
@@ -114,6 +130,9 @@ def acao_atacar():
         registrar(f"{heroi.nome} causou {dano} de dano. "
                   f"{monstro.nome} revidou {contra}.")   
     else:
+        # Calcula o XP e concede ao herói.
+        xp_ganho = monstro.nivel * 100
+        heroi.ganhar_xp(xp_ganho)
         registrar(f"{heroi.nome} causou {dano} e derrotou {monstro.nome}!")
 
     atualizar_tela()
@@ -138,8 +157,10 @@ def acao_golpe():
 
     if monstro.esta_vivo():
         contra = monstro.atacar(heroi)
-        registrar(f"{heroi.nome} usou seu GOLPE ESPECIAL e causou {dano} de dano! Já o {monstro.nome} revidou e causou {contra} de dano!")
+        registrar(f"{heroi.nome} usou seu golpe especial e causou {dano} de dano! Já o {monstro.nome} revidou e causou {contra} de dano!")
     else:
+        xp_ganho = monstro.nivel * 100
+        heroi.ganhar_xp(xp_ganho)
         registrar(f"{heroi.nome} obliterou {monstro.nome} com um GOLPE ESPECIAL de {dano} de dano!")
         
     atualizar_tela()
